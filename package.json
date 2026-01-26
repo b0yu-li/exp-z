@@ -1,0 +1,22 @@
+{
+  "name": "exp-z",
+  "version": "0.0.1",
+  "description": "Expense Tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b0yu-li/exp-z.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Boyu Li",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/b0yu-li/exp-z/issues"
+  },
+  "homepage": "https://github.com/b0yu-li/exp-z#readme"
+}
