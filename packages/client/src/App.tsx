@@ -1,35 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import { AddTransactionForm } from './components/AddTransactionForm';
+import { TransactionList, type Transaction } from './components/TransactionList';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // 1. STATE with Lazy Initialization
+  // We pass a function to useState so it only runs ONCE on mount,
+  // instead of parsing JSON on every render.
+  const [transactions, setTransactions] = useState<Transaction[]>(() => {
+    const saved = localStorage.getItem('exp-z-data');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // 2. PERSISTENCE
+  // Whenever 'transactions' changes, save it.
+  useEffect(() => {
+    localStorage.setItem('exp-z-data', JSON.stringify(transactions));
+  }, [transactions]);
+
+  // 3. ACTIONS
+  const addTransaction = (data: { text: string; amount: number }) => {
+    const newTransaction: Transaction = {
+      id: Date.now(), // Simple ID for now
+      ...data,
+    };
+    setTransactions([newTransaction, ...transactions]); // Newest first
+  };
+
+  const deleteTransaction = (id: number) => {
+    setTransactions(transactions.filter(t => t.id !== id));
+  };
+
+  // 4. DERIVED STATE (The "Math" Section)
+  // We calculate these on the fly. No extra state variables needed.
+  const amounts = transactions.map(t => t.amount);
+  const total = amounts.reduce((acc, item) => acc + item, 0).toFixed(2);
+  const income = amounts
+    .filter(item => item > 0)
+    .reduce((acc, item) => acc + item, 0)
+    .toFixed(2);
+  const expense = (
+    amounts.filter(item => item < 0).reduce((acc, item) => acc + item, 0) * -1
+  ).toFixed(2);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-gray-100 py-10 px-4">
+      <div className="max-w-md mx-auto">
+        <header className="text-center mb-10">
+          <h1 className="text-4xl font-extrabold text-indigo-600 tracking-tighter">Exp-Z</h1>
+          <p className="text-gray-500 text-sm mt-1">Ultimate Control. Zero Compromise.</p>
+        </header>
+
+        {/* The Dashboard (Summary) */}
+        <div className="bg-white p-6 rounded-lg shadow-lg mb-6 text-center">
+          <h4 className="text-gray-500 uppercase text-xs font-bold tracking-wider">Balance</h4>
+          <h1 className="text-4xl font-bold my-2 text-gray-800">${total}</h1>
+
+          <div className="flex justify-center gap-10 mt-6 border-t pt-4">
+            <div>
+              <h4 className="text-gray-500 text-xs uppercase">Income</h4>
+              <p className="text-green-500 font-bold text-xl">+${income}</p>
+            </div>
+            <div className="border-r border-gray-200"></div>
+            <div>
+              <h4 className="text-gray-500 text-xs uppercase">Expense</h4>
+              <p className="text-red-500 font-bold text-xl">-${expense}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* The Form */}
+        <AddTransactionForm onAdd={addTransaction} />
+
+        {/* The List */}
+        <TransactionList transactions={transactions} onDelete={deleteTransaction} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
