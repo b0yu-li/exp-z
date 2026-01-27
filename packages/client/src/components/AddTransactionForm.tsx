@@ -1,14 +1,8 @@
 import { useState } from 'react';
-
-// 1. Define the shape of the data we are passing up
-// In an interview, defining strict types is a big plus.
-interface TransactionData {
-    text: string;
-    amount: number;
-}
+import type { Transaction } from '../models/Transaction';
 
 interface Props {
-    onAdd: (transaction: TransactionData) => void;
+    onAdd: (transaction: Transaction) => void;
 }
 
 export const AddTransactionForm = ({ onAdd }: Props) => {
@@ -29,6 +23,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
 
         // 4. Pass data to parent
         onAdd({
+            id: Date.now(), // Simple ID for now
             text,
             amount: finalAmount,
         });

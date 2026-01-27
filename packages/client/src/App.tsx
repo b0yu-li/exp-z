@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { AddTransactionForm } from './components/AddTransactionForm';
-import { TransactionList, type Transaction } from './components/TransactionList';
+import { TransactionList } from './components/TransactionList';
+import type { Transaction } from './models/Transaction';
 
 function App() {
   // 1. STATE with Lazy Initialization
@@ -18,11 +19,8 @@ function App() {
   }, [transactions]);
 
   // 3. ACTIONS
-  const addTransaction = (data: { text: string; amount: number }) => {
-    const newTransaction: Transaction = {
-      id: Date.now(), // Simple ID for now
-      ...data,
-    };
+  const addTransaction = (transaction: Transaction) => {
+    const newTransaction: Transaction = transaction;
     setTransactions([newTransaction, ...transactions]); // Newest first
   };
 

@@ -1,8 +1,4 @@
-export interface Transaction {
-    id: number;
-    text: string;
-    amount: number;
-}
+import type { Transaction } from "../models/Transaction";
 
 interface Props {
     transactions: Transaction[];
