@@ -49,19 +49,20 @@ function App() {
         </header>
 
         {/* The Dashboard (Summary) */}
-        <div className="bg-gray-700 p-6 rounded-lg shadow-lg mb-6 text-center">
-          <h4 className="text-gray-200 uppercase text-xs font-bold tracking-wider">Balance</h4>
-          <h1 className="text-4xl font-bold my-2 text-gray-100">${total}</h1>
+        <div className="bg-gray-800 p-8 rounded-2xl shadow-xl mb-8 text-center border border-gray-700 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+          <h4 className="text-gray-400 uppercase text-xs font-bold tracking-widest mb-2">Current Balance</h4>
+          <h1 className="text-5xl font-bold text-white mb-6 tracking-tight">${total}</h1>
 
-          <div className="flex justify-center gap-10 mt-6 border-t border-gray-500 pt-4">
-            <div>
-              <h4 className="text-gray-300 text-xs uppercase">Income</h4>
-              <p className="text-green-500 font-bold text-xl">+${income}</p>
+          <div className="flex justify-center gap-8 border-t border-gray-700 pt-6">
+            <div className="text-center w-1/2">
+              <h4 className="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">Income</h4>
+              <p className="text-green-400 font-bold text-xl">+${income}</p>
             </div>
-            <div className="border-r border-gray-200"></div>
-            <div>
-              <h4 className="text-gray-300 text-xs uppercase">Expense</h4>
-              <p className="text-red-500 font-bold text-xl">-${expense}</p>
+            <div className="w-px bg-gray-700"></div>
+            <div className="text-center w-1/2">
+              <h4 className="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">Expense</h4>
+              <p className="text-red-400 font-bold text-xl">-${expense}</p>
             </div>
           </div>
         </div>
