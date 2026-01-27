@@ -39,27 +39,27 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
-                {/* Type Toggle (The UX Boost) */}
-                <div className="flex gap-4">
-                    <label className="flex items-center cursor-pointer">
+                {/* Type Toggle */}
+                <div className="grid grid-cols-2 gap-4 p-1 bg-gray-900 rounded-lg">
+                    <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${isExpense ? 'bg-red-500/20 text-red-400 border border-red-500/50' : 'text-gray-400 hover:bg-gray-800'}`}>
                         <input
                             type="radio"
                             name="type"
                             checked={isExpense}
                             onChange={() => setIsExpense(true)}
-                            className="w-4 h-4 text-red-600 focus:ring-red-500"
+                            className="hidden"
                         />
-                        <span className="ml-2 text-gray-300">Expense</span>
+                        <span className="font-semibold text-sm">Expense</span>
                     </label>
-                    <label className="flex items-center cursor-pointer">
+                    <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${!isExpense ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'text-gray-400 hover:bg-gray-800'}`}>
                         <input
                             type="radio"
                             name="type"
                             checked={!isExpense}
                             onChange={() => setIsExpense(false)}
-                            className="w-4 h-4 text-green-600 focus:ring-green-500"
+                            className="hidden"
                         />
-                        <span className="ml-2 text-gray-300">Income</span>
+                        <span className="font-semibold text-sm">Income</span>
                     </label>
                 </div>
 
@@ -91,8 +91,8 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                 <button
                     type="submit"
                     className={`w-full text-white font-bold py-2 px-4 rounded transition-colors ${isExpense
-                            ? 'bg-red-500 hover:bg-red-600'
-                            : 'bg-green-500 hover:bg-green-600'
+                        ? 'bg-red-500 hover:bg-red-600'
+                        : 'bg-green-500 hover:bg-green-600'
                         }`}
                 >
                     Add {isExpense ? 'Expense' : 'Income'}
