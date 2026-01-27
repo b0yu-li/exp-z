@@ -44,8 +44,8 @@ function App() {
     <div className="min-h-screen bg-gray-900 py-10 px-4">
       <div className="max-w-md mx-auto">
         <header className="text-center mb-10">
-          <h1 className="text-4xl font-extrabold text-green-600 tracking-tighter">Exp-Z</h1>
-          <p className="text-gray-100 text-sm mt-1">Ultimate Control. Zero Compromise.</p>
+          <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-300 to-emerald-800 tracking-tighter mb-2">Exp-Z</h1>
+          <p className="text-gray-400 text-sm font-medium tracking-wide uppercase">Ultimate Control. Zero Compromise.</p>
         </header>
 
         {/* The Dashboard (Summary) */}
