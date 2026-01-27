@@ -72,7 +72,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
 
                 {/* Text Input */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-200">Description</label>
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Description</label>
                     <input
                         type="text"
                         value={text}
@@ -84,7 +84,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
 
                 {/* Amount Input */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-200">Amount ($)</label>
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Amount ($)</label>
                     <input
                         type="number"
                         value={amount}
