@@ -39,8 +39,8 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
     };
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-            <h3 className="text-lg font-bold mb-4 text-gray-800">Add New Transaction</h3>
+        <div className="bg-gray-700 p-6 rounded-lg shadow-md mb-6">
+            <h3 className="text-lg font-bold mb-4 text-gray-200">Add New Transaction</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -54,7 +54,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                             onChange={() => setIsExpense(true)}
                             className="w-4 h-4 text-red-600 focus:ring-red-500"
                         />
-                        <span className="ml-2 text-gray-700">Expense</span>
+                        <span className="ml-2 text-gray-300">Expense</span>
                     </label>
                     <label className="flex items-center cursor-pointer">
                         <input
@@ -64,32 +64,32 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                             onChange={() => setIsExpense(false)}
                             className="w-4 h-4 text-green-600 focus:ring-green-500"
                         />
-                        <span className="ml-2 text-gray-700">Income</span>
+                        <span className="ml-2 text-gray-300">Income</span>
                     </label>
                 </div>
 
                 {/* Text Input */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Description</label>
+                    <label className="block text-sm font-medium text-gray-200">Description</label>
                     <input
                         type="text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         placeholder="e.g. Lunch with Sarah"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-200 p-2 border"
                     />
                 </div>
 
                 {/* Amount Input */}
                 <div>
-                    <label className="block text-sm font-medium text-gray-700">Amount ($)</label>
+                    <label className="block text-sm font-medium text-gray-200">Amount ($)</label>
                     <input
                         type="number"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder="0.00"
                         step="0.01" // Allow cents
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2 border"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-200 p-2 border"
                     />
                 </div>
 

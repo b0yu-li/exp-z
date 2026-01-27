@@ -43,26 +43,26 @@ function App() {
   ).toFixed(2);
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4">
+    <div className="min-h-screen bg-gray-900 py-10 px-4">
       <div className="max-w-md mx-auto">
         <header className="text-center mb-10">
-          <h1 className="text-4xl font-extrabold text-indigo-600 tracking-tighter">Exp-Z</h1>
-          <p className="text-gray-500 text-sm mt-1">Ultimate Control. Zero Compromise.</p>
+          <h1 className="text-4xl font-extrabold text-green-600 tracking-tighter">Exp-Z</h1>
+          <p className="text-gray-100 text-sm mt-1">Ultimate Control. Zero Compromise.</p>
         </header>
 
         {/* The Dashboard (Summary) */}
-        <div className="bg-white p-6 rounded-lg shadow-lg mb-6 text-center">
-          <h4 className="text-gray-500 uppercase text-xs font-bold tracking-wider">Balance</h4>
-          <h1 className="text-4xl font-bold my-2 text-gray-800">${total}</h1>
+        <div className="bg-gray-700 p-6 rounded-lg shadow-lg mb-6 text-center">
+          <h4 className="text-gray-200 uppercase text-xs font-bold tracking-wider">Balance</h4>
+          <h1 className="text-4xl font-bold my-2 text-gray-100">${total}</h1>
 
-          <div className="flex justify-center gap-10 mt-6 border-t pt-4">
+          <div className="flex justify-center gap-10 mt-6 border-t border-gray-500 pt-4">
             <div>
-              <h4 className="text-gray-500 text-xs uppercase">Income</h4>
+              <h4 className="text-gray-300 text-xs uppercase">Income</h4>
               <p className="text-green-500 font-bold text-xl">+${income}</p>
             </div>
             <div className="border-r border-gray-200"></div>
             <div>
-              <h4 className="text-gray-500 text-xs uppercase">Expense</h4>
+              <h4 className="text-gray-300 text-xs uppercase">Expense</h4>
               <p className="text-red-500 font-bold text-xl">-${expense}</p>
             </div>
           </div>

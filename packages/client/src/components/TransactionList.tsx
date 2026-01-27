@@ -12,7 +12,7 @@ interface Props {
 export const TransactionList = ({ transactions, onDelete }: Props) => {
     return (
         <div className="mt-8">
-            <h3 className="text-lg font-bold mb-4 text-gray-800 border-b pb-2">History</h3>
+            <h3 className="text-lg font-bold mb-4 text-gray-200 border-b border-gray-600 pb-2">History</h3>
             <ul className="space-y-3">
                 {transactions.length === 0 && (
                     <p className="text-gray-500 italic">No transactions yet.</p>
