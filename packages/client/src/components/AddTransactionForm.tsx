@@ -41,7 +41,10 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
 
                 {/* Type Toggle */}
                 <div className="grid grid-cols-2 gap-4 p-1 bg-gray-900 rounded-lg">
-                    <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${isExpense ? 'bg-red-500/20 text-red-400 border border-red-500/50' : 'text-gray-400 hover:bg-gray-800'}`}>
+                    <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${isExpense
+                            ? 'bg-red-500/20 text-red-400 border border-red-500/50'
+                            : 'text-gray-400 hover:bg-gray-800 border border-transparent' // Added border-transparent
+                        }`}>
                         <input
                             type="radio"
                             name="type"
@@ -51,7 +54,11 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                         />
                         <span className="font-semibold text-sm">Expense</span>
                     </label>
-                    <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${!isExpense ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'text-gray-400 hover:bg-gray-800'}`}>
+
+                    <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${!isExpense
+                            ? 'bg-green-500/20 text-green-400 border border-green-500/50'
+                            : 'text-gray-400 hover:bg-gray-800 border border-transparent' // Added border-transparent
+                        }`}>
                         <input
                             type="radio"
                             name="type"
