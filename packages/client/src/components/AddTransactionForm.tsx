@@ -9,6 +9,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
     // 2. Local State (Controlled Inputs)
     const [text, setText] = useState('');
     const [amount, setAmount] = useState('');
+    const [dateTime, setDateTime] = useState(() => new Date().toISOString().slice(0, 16));
     const [isExpense, setIsExpense] = useState(true); // Default to Expense (most common)
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -26,6 +27,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
             id: Date.now(), // Simple ID for now
             text,
             amount: finalAmount,
+            dateTime: dateTime
         });
 
         // 5. Reset Form
@@ -42,8 +44,8 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                 {/* Type Toggle */}
                 <div className="grid grid-cols-2 gap-4 p-1 bg-gray-900 rounded-lg">
                     <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${isExpense
-                            ? 'bg-red-500/20 text-red-400 border border-red-500/50'
-                            : 'text-gray-400 hover:bg-gray-800 border border-transparent' // Added border-transparent
+                        ? 'bg-red-500/20 text-red-400 border border-red-500/50'
+                        : 'text-gray-400 hover:bg-gray-800 border border-transparent' // Added border-transparent
                         }`}>
                         <input
                             type="radio"
@@ -56,8 +58,8 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                     </label>
 
                     <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${!isExpense
-                            ? 'bg-green-500/20 text-green-400 border border-green-500/50'
-                            : 'text-gray-400 hover:bg-gray-800 border border-transparent' // Added border-transparent
+                        ? 'bg-green-500/20 text-green-400 border border-green-500/50'
+                        : 'text-gray-400 hover:bg-gray-800 border border-transparent' // Added border-transparent
                         }`}>
                         <input
                             type="radio"
@@ -72,6 +74,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
 
                 {/* Text Input */}
                 <div>
+                    {/* TODO: - text-gray-300 */}
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Description</label>
                     <input
                         type="text"
@@ -84,6 +87,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
 
                 {/* Amount Input */}
                 <div>
+                    {/* TODO: - text-gray-300 */}
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Amount ($)</label>
                     <input
                         type="number"
@@ -91,6 +95,17 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                         onChange={(e) => setAmount(e.target.value)}
                         placeholder="0.00"
                         step="0.01" // Allow cents
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-200 p-2 border"
+                    />
+                </div>
+
+                {/* Date & Time Input */}
+                <div>
+                    <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">Date & Time</label>
+                    <input
+                        type="datetime-local"
+                        value={dateTime}
+                        onChange={(e) => setDateTime(e.target.value)}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-200 p-2 border"
                     />
                 </div>

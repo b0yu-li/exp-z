@@ -20,6 +20,7 @@ export const TransactionList = ({ transactions, onDelete }: Props) => {
                             }`}
                     >
                         <span className="text-gray-700">{t.text}</span>
+                        <span className="text-gray-700">{t.dateTime}</span>
                         <div className="flex items-center gap-4">
                             <span className={`font-bold ${t.amount < 0 ? 'text-red-600' : 'text-green-600'}`}>
                                 {t.amount < 0 ? '-' : '+'}${Math.abs(t.amount).toFixed(2)}
