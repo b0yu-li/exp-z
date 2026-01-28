@@ -5,11 +5,21 @@ interface Props {
     onAdd: (transaction: Transaction) => void;
 }
 
+// HELPER: Get current local time in YYYY-MM-DDTHH:mm format
+const getLocalISOString = () => {
+    const now = new Date();
+    // getTimezoneOffset() returns minutes relative to UTC (e.g., -480 for GMT+8)
+    // We subtract it to shift the time "forward" to match local clock time in the ISO string
+    const offset = now.getTimezoneOffset() * 60_000;
+    const localDate = new Date(now.getTime() - offset);
+    return localDate.toISOString();
+};
+
 export const AddTransactionForm = ({ onAdd }: Props) => {
     // 2. Local State (Controlled Inputs)
     const [text, setText] = useState('');
     const [amount, setAmount] = useState('');
-    const [dateTime, setDateTime] = useState(() => new Date().toISOString());
+    const [dateTime, setDateTime] = useState(getLocalISOString());
     const [isExpense, setIsExpense] = useState(true); // Default to Expense (most common)
 
     const handleSubmit = (e: React.FormEvent) => {
