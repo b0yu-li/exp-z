@@ -5,6 +5,17 @@ interface Props {
     onDelete: (id: number) => void;
 }
 
+const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+    }).format(date);
+    // Output: "Jan 28, 7:30 PM"
+};
+
 export const TransactionList = ({ transactions, onDelete }: Props) => {
     return (
         <div className="mt-8">
@@ -19,8 +30,13 @@ export const TransactionList = ({ transactions, onDelete }: Props) => {
                         className={`bg-white p-3 rounded shadow-sm flex justify-between items-center border-l-4 ${t.amount < 0 ? 'border-red-500' : 'border-green-500'
                             }`}
                     >
-                        <span className="text-gray-700">{t.text}</span>
-                        <span className="text-gray-700">{t.dateTime}</span>
+                        <div className="flex flex-col">
+                            <span className="text-gray-800 font-medium">{t.text}</span>
+                            {/* NEW: Smaller, lighter text for the date */}
+                            <span className="text-gray-400 text-xs">
+                                {formatDate(t.dateTime)}
+                            </span>
+                        </div>
                         <div className="flex items-center gap-4">
                             <span className={`font-bold ${t.amount < 0 ? 'text-red-600' : 'text-green-600'}`}>
                                 {t.amount < 0 ? '-' : '+'}${Math.abs(t.amount).toFixed(2)}

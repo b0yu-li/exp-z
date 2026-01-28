@@ -9,7 +9,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
     // 2. Local State (Controlled Inputs)
     const [text, setText] = useState('');
     const [amount, setAmount] = useState('');
-    const [dateTime, setDateTime] = useState(() => new Date().toISOString().slice(0, 16));
+    const [dateTime, setDateTime] = useState(() => new Date().toISOString());
     const [isExpense, setIsExpense] = useState(true); // Default to Expense (most common)
 
     const handleSubmit = (e: React.FormEvent) => {
