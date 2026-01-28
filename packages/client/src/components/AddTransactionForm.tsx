@@ -102,7 +102,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
                     <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">Date & Time</label>
                     <input
                         type="datetime-local"
-                        value={dateTime}
+                        value={dateTime.slice(0, 16)}
                         onChange={(e) => setDateTime(e.target.value)}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-gray-200 p-2 border"
                     />
