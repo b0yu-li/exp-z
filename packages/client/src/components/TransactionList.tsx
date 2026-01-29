@@ -16,15 +16,21 @@ const formatDate = (isoString: string) => {
     // Output: "Jan 28, 7:30 PM"
 };
 
+const sortTransactionsChronologically = (transactions: Transaction[]): Transaction[] => {
+    // TODO: sort by `Transaction.dateTime` string
+    return transactions.sort((a, b) => Date.parse(b.dateTime) - Date.parse(a.dateTime))
+}
+
 export const TransactionList = ({ transactions, onDelete }: Props) => {
+    const sortedTransactions = sortTransactionsChronologically(transactions);
     return (
         <div className="mt-8">
             <h3 className="text-lg font-bold mb-4 text-gray-200 border-b border-gray-600 pb-2">History</h3>
             <ul className="space-y-3">
-                {transactions.length === 0 && (
+                {sortedTransactions.length === 0 && (
                     <p className="text-gray-500 italic">No transactions yet.</p>
                 )}
-                {transactions.map((t) => (
+                {sortedTransactions.map((t) => (
                     <li
                         key={t.id}
                         className={`bg-white p-3 rounded shadow-sm flex justify-between items-center border-l-4 ${t.amount < 0 ? 'border-red-500' : 'border-green-500'
