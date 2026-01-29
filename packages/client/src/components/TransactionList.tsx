@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import type { Transaction } from "../models/Transaction";
 
 interface Props {
@@ -16,13 +17,23 @@ const formatDate = (isoString: string) => {
     // Output: "Jan 28, 7:30 PM"
 };
 
-const sortTransactionsChronologically = (transactions: Transaction[]): Transaction[] => {
-    // TODO: sort by `Transaction.dateTime` string
-    return transactions.sort((a, b) => Date.parse(b.dateTime) - Date.parse(a.dateTime))
-}
-
 export const TransactionList = ({ transactions, onDelete }: Props) => {
-    const sortedTransactions = sortTransactionsChronologically(transactions);
+    // 1. PERFORMANCE & SAFETY FIX
+    // We use useMemo so this heavy sorting calculation only runs when 'transactions' changes.
+    const sortedTransactions = useMemo(() => {
+        // 2. IMMUTABILITY FIX
+        // We use [...transactions] to create a COPY of the array.
+        // This ensures we don't accidentally mutate the original 'transactions' prop,
+        // which can cause hard-to-debug rendering issues in React.
+        return [...transactions].sort((a, b) => {
+            // Optimization: Since we are using ISO strings, standard string comparison 
+            // is faster and more reliable than Date.parse().
+            // "2023-01-02" is always alphabetically greater than "2023-01-01"
+            return b.dateTime.localeCompare(a.dateTime);
+        });
+    }, [transactions]);
+
+
     return (
         <div className="mt-8">
             <h3 className="text-lg font-bold mb-4 text-gray-200 border-b border-gray-600 pb-2">History</h3>
