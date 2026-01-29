@@ -1,12 +1,22 @@
 import { useState } from "react";
+import type { Transaction } from "../models/Transaction";
 
 interface DashboardProps {
-    total: string;
-    income: string;
-    expense: string;
+    transactions: Transaction[];
 }
 
-export const Dashboard = ({ total, income, expense }: DashboardProps) => {
+export const Dashboard = ({ transactions }: DashboardProps) => {
+
+    const amounts = transactions.map(t => t.amount);
+    const total = amounts.reduce((acc, item) => acc + item, 0).toFixed(2);
+    const income = amounts
+        .filter(item => item > 0)
+        .reduce((acc, item) => acc + item, 0)
+        .toFixed(2);
+    const expense = (
+        amounts.filter(item => item < 0).reduce((acc, item) => acc + item, 0) * -1
+    ).toFixed(2);
+
     const [view, setView] = useState<'expenses' | 'balance'>('expenses');
 
     return (

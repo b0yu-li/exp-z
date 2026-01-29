@@ -29,18 +29,6 @@ function App() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
-  // 4. DERIVED STATE (The "Math" Section)
-  // We calculate these on the fly. No extra state variables needed.
-  const amounts = transactions.map(t => t.amount);
-  const total = amounts.reduce((acc, item) => acc + item, 0).toFixed(2);
-  const income = amounts
-    .filter(item => item > 0)
-    .reduce((acc, item) => acc + item, 0)
-    .toFixed(2);
-  const expense = (
-    amounts.filter(item => item < 0).reduce((acc, item) => acc + item, 0) * -1
-  ).toFixed(2);
-
   return (
     <div className="min-h-screen bg-gray-900 py-10 px-4">
       <div className="max-w-md mx-auto">
@@ -50,11 +38,7 @@ function App() {
         </header>
 
         {/* The Dashboard (Summary) */}
-        <Dashboard
-          total={total}
-          income={income}
-          expense={expense}
-        />
+        <Dashboard transactions={transactions}/>
 
         {/* The Form */}
         <AddTransactionForm onAdd={addTransaction} />
