@@ -6,11 +6,6 @@ import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
 
 function App() {
-  useEffect(() => {
-    document.body.style.backgroundColor = '#111827'; // bg-gray-900
-    return () => { document.body.style.backgroundColor = ''; };
-  }, []);
-
   // 1. STATE with Lazy Initialization
   // We pass a function to useState so it only runs ONCE on mount,
   // instead of parsing JSON on every render.
