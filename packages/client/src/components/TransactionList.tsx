@@ -18,10 +18,17 @@ const formatDate = (isoString: string) => {
     // Output: "Jan 28, 7:30 PM"
 };
 
-const formatDateHeader = (isoString: string) => {
+const formatDateHeader = (isoString: string): string => {
     const date = new Date(isoString);
+    const now = new Date();
+    // Check if the year matches the current year
+    const isCurrentYear = date.getFullYear() === now.getFullYear();
+
     return new Intl.DateTimeFormat('en-US', {
-        month: 'short', day: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        // Conditionally include year if it's not the current year
+        year: isCurrentYear ? undefined : 'numeric'
     }).format(date);
 };
 
