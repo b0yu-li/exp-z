@@ -31,7 +31,7 @@ export const Dashboard = () => {
 
             {/* Controls Container */}
             <div className="flex flex-col items-center gap-6 mb-6">
-                <div className="bg-gray-900 p-1 rounded-lg inline-flex shadow-inner">
+                <div className="bg-gray-900 py-1 px-1.5 rounded-lg inline-flex shadow-inner">
                     <button
                         onClick={() => setView('expenses')}
                         className={`px-4 py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-all duration-200 ${!isBalanceView ? 'bg-gray-700 text-white shadow-lg transform scale-105' : 'text-gray-500 hover:text-gray-300'

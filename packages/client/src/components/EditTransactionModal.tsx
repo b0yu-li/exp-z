@@ -56,7 +56,7 @@ export const EditTransactionModal = ({ isOpen, onClose, transaction }: EditModal
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Toggle */}
-                    <div className="grid grid-cols-2 gap-4 p-1 bg-gray-900 rounded-lg">
+                    <div className="grid grid-cols-2 gap-1 p-1 bg-gray-900 rounded-lg">
                         <label className={`flex justify-center items-center cursor-pointer p-2 rounded-md transition-all ${isExpense ? 'bg-red-500/20 text-red-400 border border-red-500/50' : 'text-gray-400 hover:bg-gray-800 border border-transparent'}`}>
                             <input type="radio" checked={isExpense} onChange={() => setIsExpense(true)} className="hidden" />
                             <span className="font-semibold text-sm">Expense</span>
