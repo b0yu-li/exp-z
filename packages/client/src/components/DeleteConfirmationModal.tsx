@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 // 3. Delete Confirmation Modal (NEW)
 interface DeleteModalProps {
     isOpen: boolean;
@@ -6,6 +8,19 @@ interface DeleteModalProps {
 }
 
 export const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm }: DeleteModalProps) => {
+
+    // Scroll Lock Effect
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
+
     if (!isOpen) return null;
 
     return (
