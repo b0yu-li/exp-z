@@ -7,15 +7,13 @@ interface Props {
     onDelete: (id: number) => void;
 }
 
-const formatDate = (isoString: string) => {
+const formatTime = (isoString: string) => {
     const date = new Date(isoString);
     return new Intl.DateTimeFormat('en-US', {
-        month: 'short',
-        day: 'numeric',
         hour: 'numeric',
         minute: '2-digit',
     }).format(date);
-    // Output: "Jan 28, 7:30 PM"
+    // Output: "7:30 PM"
 };
 
 const formatDateHeader = (isoString: string): string => {
@@ -115,7 +113,7 @@ export const TransactionList = ({ transactions, onDelete }: Props) => {
                                                     {t.text}
                                                 </span>
                                                 <span className="text-xs text-gray-500 mt-0.5 font-medium">
-                                                    {formatDate(t.dateTime)}
+                                                    {formatTime(t.dateTime)}
                                                 </span>
                                             </div>
 
