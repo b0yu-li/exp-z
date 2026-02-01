@@ -108,16 +108,25 @@ export const TransactionList = ({ transactions, onDelete }: Props) => {
                                             className={`group bg-gray-800 p-4 rounded-lg shadow-sm flex justify-between items-center border-l-4 transition-all hover:bg-gray-750 ${t.amount < 0 ? 'border-red-500' : 'border-green-500'
                                                 }`}
                                         >
-                                            <div className="flex flex-col">
-                                                <span className="text-gray-100 font-medium">{t.text}</span>
-                                                {/* Show only time here since date is in header */}
+                                            {/* LEFT SIDE: Text & Date */}
+                                            {/* Added 'flex-1 min-w-0' to ensure this side yields space to the amount */}
+                                            <div className="flex flex-col flex-1 min-w-0 pr-4">
+                                                <span className="text-gray-100 font-medium break-words">
+                                                    {t.text}
+                                                </span>
                                                 <span className="text-xs text-gray-500 mt-0.5 font-medium">
                                                     {formatDate(t.dateTime)}
                                                 </span>
                                             </div>
 
-                                            <div className="flex items-center gap-4">
-                                                <span className={`font-bold text-lg ${t.amount < 0 ? 'text-red-400' : 'text-green-400'}`}>
+                                            {/* RIGHT SIDE: Amount & Delete Button */}
+                                            {/* Added 'shrink-0' so this container never collapses */}
+                                            <div className="flex items-center gap-4 shrink-0">
+                                                <span
+                                                    /* Added 'whitespace-nowrap' to keep -$41.72 together */
+                                                    className={`font-bold text-lg whitespace-nowrap ${t.amount < 0 ? 'text-red-400' : 'text-green-400'
+                                                        }`}
+                                                >
                                                     {t.amount < 0 ? '-' : '+'}${Math.abs(t.amount).toFixed(2)}
                                                 </span>
                                                 <button
