@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 
 // 3. Delete Confirmation Modal (NEW)
 interface DeleteModalProps {
@@ -9,22 +8,10 @@ interface DeleteModalProps {
 
 export const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm }: DeleteModalProps) => {
 
-    // Scroll Lock Effect
-    useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [isOpen]);
-
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+        <div className="modal-open fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
             <div className="bg-gray-800 border border-gray-700 p-6 rounded-xl shadow-2xl max-w-sm w-full transform transition-all scale-100">
                 <h3 className="text-xl font-bold text-gray-100 mb-2">Delete Transaction?</h3>
                 <p className="text-gray-400 mb-6 text-sm leading-relaxed">

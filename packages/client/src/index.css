@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
 body {
-    background-color: #111827; /*bg-gray-900*/
+    /*bg-gray-900*/
+    background-color: #111827;
+}
+
+body:has(.modal-open) {
+    overflow: hidden;
 }
