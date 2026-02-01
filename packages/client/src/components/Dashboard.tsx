@@ -1,12 +1,11 @@
 import { useMemo, useState } from "react";
-import type { Transaction } from "../models/Transaction";
+import { useTransactions } from "../context/TransactionContext";
 import { MonthPicker } from "./MonthPicker"; // <--- Import here
 
-interface DashboardProps {
-    transactions: Transaction[];
-}
 
-export const Dashboard = ({ transactions }: DashboardProps) => {
+export const Dashboard = () => {
+    const { transactions } = useTransactions(); // <--- Get data directly
+
     const [view, setView] = useState<'expenses' | 'balance'>('expenses');
 
     // Default to current month (YYYY-MM format)

@@ -1,11 +1,8 @@
 import { useMemo, useState } from "react";
+import { useTransactions } from "../context/TransactionContext";
 import type { Transaction } from "../models/Transaction";
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 
-interface Props {
-    transactions: Transaction[];
-    onDelete: (id: number) => void;
-}
 
 const formatTime = (isoString: string) => {
     const date = new Date(isoString);
@@ -30,7 +27,9 @@ const formatDateHeader = (isoString: string): string => {
     }).format(date);
 };
 
-export const TransactionList = ({ transactions, onDelete }: Props) => {
+export const TransactionList = () => {
+    const { transactions, deleteTransaction } = useTransactions(); // <--- Get data & actions
+
     const [deleteId, setDeleteId] = useState<number | null>(null);
 
     // Grouping Logic: Returns object { "2023-10-27": [Transaction, ...], ... }
@@ -57,7 +56,7 @@ export const TransactionList = ({ transactions, onDelete }: Props) => {
 
     const confirmDelete = () => {
         if (deleteId !== null) {
-            onDelete(deleteId);
+            deleteTransaction(deleteId);
             setDeleteId(null);
         }
     };

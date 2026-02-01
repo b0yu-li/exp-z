@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import type { Transaction } from '../models/Transaction';
-
-interface Props {
-    onAdd: (transaction: Transaction) => void;
-}
+import { useTransactions } from '../context/TransactionContext';
 
 // HELPER: Get current local time in YYYY-MM-DDTHH:mm format
 const getLocalISOString = () => {
@@ -15,7 +11,10 @@ const getLocalISOString = () => {
     return localDate.toISOString();
 };
 
-export const AddTransactionForm = ({ onAdd }: Props) => {
+export const AddTransactionForm = () => {
+
+    const { addTransaction } = useTransactions(); // <--- Get action directly
+
     // 2. Local State (Controlled Inputs)
     const [text, setText] = useState('');
     const [amount, setAmount] = useState('');
@@ -33,7 +32,7 @@ export const AddTransactionForm = ({ onAdd }: Props) => {
         const finalAmount = isExpense ? -Math.abs(val) : Math.abs(val);
 
         // 4. Pass data to parent
-        onAdd({
+        addTransaction({
             id: Date.now(), // Simple ID for now
             text,
             amount: finalAmount,
