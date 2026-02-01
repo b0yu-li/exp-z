@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AddTransactionForm } from './components/AddTransactionForm';
-import { TransactionList } from './components/TransactionList';
-import type { Transaction } from './models/Transaction';
 import { Dashboard } from './components/Dashboard';
 import { Header } from './components/Header';
+import { TransactionList } from './components/TransactionList';
+import type { Transaction } from './models/Transaction';
 
 function App() {
   // 1. STATE with Lazy Initialization
@@ -30,11 +30,24 @@ function App() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
+  const exportData = () => {
+    const jsonString = JSON.stringify(transactions, null, 2);
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = href;
+    link.download = `exp-z-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(href);
+};
+
   return (
     <div className="min-h-screen bg-gray-900 py-10 px-4">
       <div className="max-w-md mx-auto">
         {/* The Exp-Z Header */}
-        <Header></Header>
+        <Header onExportData={exportData}></Header>
 
         {/* The Dashboard (Summary) */}
         <Dashboard transactions={transactions} />
