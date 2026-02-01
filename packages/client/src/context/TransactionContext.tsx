@@ -1,9 +1,10 @@
-import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Transaction } from "../models/Transaction";
 
 interface TransactionContextType {
     transactions: Transaction[];
     addTransaction: (transaction: Transaction) => void;
+    editTransaction: (updatedTransaction: Transaction) => void; // <--- NEW
     deleteTransaction: (id: number) => void;
     exportData: () => void;
 }
@@ -27,6 +28,12 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
         setTransactions(prev => [transaction, ...prev]);
     }, []);
 
+    const editTransaction = useCallback((updatedTransaction: Transaction) => {
+        setTransactions(prev =>
+            prev.map(t => (t.id === updatedTransaction.id ? updatedTransaction : t))
+        );
+    }, []);
+
     const deleteTransaction = useCallback((id: number) => {
         setTransactions(prev => prev.filter(t => t.id !== id));
     }, []);
@@ -45,7 +52,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     }, [transactions]);
 
     return (
-        <TransactionContext.Provider value={{ transactions, addTransaction, deleteTransaction, exportData }}>
+        <TransactionContext.Provider value={{ transactions, addTransaction, editTransaction, deleteTransaction, exportData }}>
             {children}
         </TransactionContext.Provider>
     );

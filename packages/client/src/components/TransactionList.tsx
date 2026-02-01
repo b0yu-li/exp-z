@@ -3,11 +3,14 @@ import { useTransactions } from "../context/TransactionContext";
 import { useTransactionHistory } from "../hooks/useTransactionHistory"; // <--- Import Hook
 import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 import { TransactionItem } from "./TransactionItem"; // <--- Import Component
+import { EditTransactionModal } from "./EditTransactionModal";
+import type { Transaction } from "../models/Transaction";
 
 export const TransactionList = () => {
     const { transactions, deleteTransaction } = useTransactions();
     const { groupedTransactions, dateKeys, formatDateHeader } = useTransactionHistory(transactions); // <--- Use Hook
     const [deleteId, setDeleteId] = useState<number | null>(null);
+    const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null); // <--- New State
 
     const confirmDelete = () => {
         if (deleteId !== null) {
@@ -52,6 +55,7 @@ export const TransactionList = () => {
                                         <TransactionItem
                                             key={t.id}
                                             transaction={t}
+                                            onEdit={setEditingTransaction}
                                             onDelete={setDeleteId}
                                         />
                                     ))}
@@ -61,6 +65,13 @@ export const TransactionList = () => {
                     })}
                 </div>
             </div>
+
+            {/* EDIT MODAL (New) */}
+            <EditTransactionModal
+                isOpen={!!editingTransaction}
+                transaction={editingTransaction}
+                onClose={() => setEditingTransaction(null)}
+            />
 
             <DeleteConfirmationModal
                 isOpen={!!deleteId}
