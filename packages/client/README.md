@@ -96,3 +96,15 @@ describe('DeleteConfirmationModal', () => {
     });
 });
 ```
+
+### `useAddTransactionForm` Anatomy
+
+Key Techniques Used:
+
+1. **`vi.mock`**: We completely bypassed the `TransactionContext`. We don't need `TransactionProvider` wrapping our tests; we just tell Vitest: "Whenever this file asks for `useTransactions`, give it this mock object instead."
+
+2. **`renderHook`**: You can't use standard `render(<MyComponent />)` for hooks. `renderHook` creates a headless component specifically for testing hooks.
+
+3. **`act()`**: Any time we change state (like calling `setText`), we must wrap it in `act(...)`. This ensures React processes the update before we check our `expect` assertions.
+
+4. **`expect.any(Number)`**: Since `id` is generated using `Date.now()`, it changes every millisecond. We can't predict the exact number, so we just assert that "It must be a Number".
