@@ -4,6 +4,8 @@
 
 When designing components, Junior devs ask: _"How do I make this work?"_ Senior devs ask: _"Who owns this data, and how does it change?"_
 
+TODO: - Actually, currently inaccurate, `DeleteTransactionModal` does not `deleteTransaction` hook (just yet)
+
 ```mermaid
 graph TD
     UserInput --> AddForm[AddTransactionForm]
