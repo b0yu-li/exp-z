@@ -97,7 +97,37 @@ describe('DeleteConfirmationModal', () => {
 });
 ```
 
-### `useAddTransactionForm` Anatomy
+### `DeleteConfirmationModal.test.tsx` Anatomy
+
+Key Techniques Used:
+
++ **`queryByText` vs `getByText`**:
+
+  + **`getByText`** throws an error immediately if the text isn't found, which is perfect for asserting that something _should_ be there (like in the "visible state" test).
+
+  + **`queryByText`** returns `null` instead of throwing, which is essential for asserting that something should _not_ be there (`expect(...).not.toBeInTheDocument()`).
+
++ **`getByRole` with `{ name: ... }`**:
+
+  + Instead of relying on fragile CSS classes or generic text searches, we select elements by their accessible role (e.g., `'button'`).
+
+  + The `{ name: 'Delete' }` option specifically targets the button with "Delete" text, preventing confusion with the modal title "Delete Transaction?" which also contains the word "Delete". This ensures we are testing exactly what a screen reader or keyboard user would interact with.
+
++ **Mock Functions (`vi.fn()`)**:
+
+  + We create "spy" functions using `vi.fn()` to pass as props (`onClose`, `onConfirm`).
+
+  + This allows us to track _if_ and _how many times_ (`toHaveBeenCalledTimes(1)`) the component tried to call these functions when the user clicked a button, effectively testing the "wiring" of the component.
+
++ **`fireEvent.click()`**:
+
+  + This utility simulates a real user click event on the DOM element we selected. It triggers the `onClick` handler defined in the React component, bridging the gap between the static DOM and the interactive logic.
+
++ **`beforeEach` Cleanup**:
+
+  + `vi.clearAllMocks()` is run before every single test. This ensures that a click in "Test A" doesn't accidentally count towards the call usage in "Test B", keeping every test isolated and reliable.
+
+### `useAddTransactionForm.test.ts` Anatomy
 
 Key Techniques Used:
 
