@@ -97,6 +97,34 @@ describe('DeleteConfirmationModal', () => {
 });
 ```
 
+### `AddTransactionForm.test.tsx` Anatomy
+
+Key Techniques Used:
+
+1. **UI Isolation via `vi.mock`**:
+
+    + I mocked the custom hook `useAddTransactionForm`. This isolates the _View_ (the component) from the _Logic_ (the hook).
+
+    + If the hook has a bug, this test won't fail. This test _only_ fails if the component stops displaying data correctly or stops wiring up buttons to the hook's functions.
+
+2. **State Injection (`mockReturnValue`)**:
+
+    + I use `vi.mocked(...).mockReturnValue(...)` as a "control panel" to inject state directly into the component.
+
+    + Instead of clicking a button to change the state to "Income" (integration testing), we simply _tell the component_ "The state is now Income" and verify it renders the green UI. This makes testing visual states incredibly fast and reliable.
+
+3. **Simulating "Change" Events**:
+
+    + **`fireEvent.change`**: I use this to simulate typing. We verify that typing "New Laptop" immediately calls the `setText` setter passed down from the hook.
+
+    + **Ghost State Handling**: Because the hook is **mocked**, the value of `isExpense` **doesn't actually change**. It stays `true` forever in my test world. To test the "Expense" click, I had to explicitly initialize the mock state to "Income" (`isExpense: false`) so the click matched my expectation (`expect(mockSetIsExpense).toHaveBeenCalledWith(true)`).
+
+4. **Accessibility-First Selection**:
+
+    + **`getByLabelText`**: This was critical. It forced me to add `htmlFor` and `id` attributes to our code. Now, the test confirms that a screen reader user can find the "Date & Time" input, not just that an input exists somewhere on the page.
+
+    + **`getByRole('button', { name: ... })`**: I distinguish between the "Add Expense" and "Add Income" buttons by their accessible name, ensuring the text updates dynamically as expected.
+
 ### `DeleteConfirmationModal.test.tsx` Anatomy
 
 Key Techniques Used:
