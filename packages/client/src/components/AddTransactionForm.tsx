@@ -72,8 +72,9 @@ export const AddTransactionForm = () => {
 
                 {/* Date & Time Input */}
                 <div>
-                    <label className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">Date & Time</label>
+                    <label htmlFor='input-amount' className="block text-xs font-bold text-gray-300 uppercase tracking-wider mb-1">Date & Time</label>
                     <input
+                        id='input-amount'
                         type="datetime-local"
                         value={dateTime.slice(0, 16)}
                         onChange={(e) => setDateTime(e.target.value)}
