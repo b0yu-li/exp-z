@@ -1,5 +1,34 @@
 # README
 
+## State Design
+
+When designing components, Junior devs ask: _"How do I make this work?"_ Senior devs ask: _"Who owns this data, and how does it change?"_
+
+```mermaid
+graph TD
+    UserInput --> AddForm[AddTransactionForm]
+    UserInput --> EditModal[EditTransactionModal]
+    UserInput --> DeleteModal[DeleteTransactionModal]
+    
+    AddForm -->|addTransaction| Context[TransactionContext]
+    EditModal -->|editTransaction| Context
+    DeleteModal -->|deleteTransaction| Context
+    List[TransactionList] -->|deleteTransaction| Context
+    
+    Context -->|Syncs| Storage[(LocalStorage)]
+    Context -->|"transactions[]"| Dashboard
+    Context -->|"transactions[]"| List
+    
+    subgraph Derived State
+        Dashboard -->|Calculates| Stats[Balance / Monthly Totals]
+        List -->|Groups by| History[Date Headers]
+    end
+```
+
+![State Design](images/state-design.png)
+
+---
+
 ## Testing
 
 + Install dependencies: `vitest`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom`
