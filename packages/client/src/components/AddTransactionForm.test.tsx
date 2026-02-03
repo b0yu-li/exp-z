@@ -87,18 +87,29 @@ describe('AddTransactionForm UI', () => {
         expect(incomeLabelText.parentElement).toHaveClass('bg-green-500/20');
     });
 
-    test('calls setIsExpense when toggle buttons are clicked', () => {
+    test('calls setIsExpense(false) when clicking Income (starting from Expense)', () => {
+        // Default mock is isExpense: true
         render(<AddTransactionForm />);
 
-        // Click "Income"
         const incomeLabel = screen.getByText('Income');
         fireEvent.click(incomeLabel);
-        // Note: Clicking the label triggers the input change in React
-        expect(mockSetIsExpense).toHaveBeenCalledWith(false);
 
-        // Click "Expense"
+        expect(mockSetIsExpense).toHaveBeenCalledWith(false);
+    });
+
+    test('calls setIsExpense(true) when clicking Expense (starting from Income)', () => {
+        // 1. Force the mock to start in "Income" mode
+        vi.mocked(HookModule.useAddTransactionForm).mockReturnValue({
+            ...defaultValues,
+            isExpense: false // <--- Start as Income (Expense is unchecked)
+        });
+
+        render(<AddTransactionForm />);
+
+        // 2. Now clicking "Expense" represents a CHANGE, so the event fires
         const expenseLabel = screen.getByText('Expense');
         fireEvent.click(expenseLabel);
+
         expect(mockSetIsExpense).toHaveBeenCalledWith(true);
     });
 
